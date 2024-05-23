@@ -26,16 +26,15 @@ function App() {
       entries: IntersectionObserverEntry[],
       observer: IntersectionObserver
     ) => {
-      entries.forEach((entry: IntersectionObserverEntry) => {
-        if (!entry.isIntersecting) {
-          return;
-        }
-        if (!isLoading) {
-          setPage((prev) => prev + 10);
-        }
-        observer.unobserve(entry.target);
-        observer.observe(target.current as HTMLElement);
-      });
+      const entry: IntersectionObserverEntry = entries[0];
+      if (!entry.isIntersecting) {
+        return;
+      }
+      if (!isLoading) {
+        setPage((prev) => prev + 10);
+      }
+      observer.unobserve(entry.target);
+      observer.observe(target.current as HTMLElement);
     };
 
     const observer = new IntersectionObserver(handleObserver, option);
@@ -67,6 +66,7 @@ function App() {
           );
         })}
       </ul>
+      {isLoading && <p>로딩중</p>}
     </div>
   );
 }
