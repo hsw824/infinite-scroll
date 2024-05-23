@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
 import "./App.css";
+import { useEffect, useRef, useState } from "react";
 
 function App() {
   const [items, setItems] = useState<
@@ -13,7 +13,7 @@ function App() {
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  const target = useRef<HTMLDivElement | null>(null);
+  const target = useRef<HTMLLIElement | null>(null);
 
   useEffect(() => {
     if (isLoading) return;
@@ -59,7 +59,7 @@ function App() {
       <ul>
         {items.map((item, index) => {
           return (
-            <li key={item.id}>
+            <li ref={items.length === index + 1 ? target : null} key={item.id}>
               <p>{item.id}</p>
               <p>{item.title}</p>
               <p>{item.body}</p>
@@ -67,7 +67,6 @@ function App() {
           );
         })}
       </ul>
-      <div ref={target} />
     </div>
   );
 }
